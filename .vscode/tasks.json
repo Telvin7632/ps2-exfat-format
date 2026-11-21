@@ -1,0 +1,42 @@
+{
+    "version": "2.0.0",
+    "options": {
+        "cwd": "${workspaceFolder}",
+        "env": {
+            "PS2DEV": "/usr/local/ps2dev",
+            "PS2SDK": "/usr/local/ps2dev/ps2sdk",
+            "PATH": "/usr/local/ps2dev/bin:/usr/local/ps2dev/ee/bin:/usr/local/ps2dev/iop/bin:/usr/local/ps2dev/dvp/bin:/usr/local/ps2dev/ps2sdk/bin:${env:PATH}"
+        }
+    },
+    "tasks": [
+        {
+            "label": "Build",
+            "type": "shell",
+            "command": "make",
+            "group": { "kind": "build", "isDefault": true },
+            "problemMatcher": {
+                "base": "$gcc",
+                "fileLocation": ["autoDetect", "${workspaceFolder}"]
+            }
+        },
+        {
+            "label": "Clean",
+            "type": "shell",
+            "command": "make clean",
+            "problemMatcher": []
+        },
+        {
+            "label": "Download FatFs",
+            "type": "shell",
+            "command": "make fatfs",
+            "problemMatcher": []
+        },
+        {
+            "label": "Run in PCSX2",
+            "type": "shell",
+            "command": "\"/mnt/c/Program Files/PCSX2/pcsx2-qt.exe\" \"$(wslpath -w ee/exfat-format.elf)\"",
+            "dependsOn": "Build",
+            "problemMatcher": []
+        }
+    ]
+}

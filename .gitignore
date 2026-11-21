@@ -1,0 +1,17 @@
+# build output
+*.o
+*.elf
+*.irx
+obj/
+ee/*_irx.c
+build.log
+
+# host tests (sparse images live in /tmp/ps2-exfat-test, outside the repo)
+tests/host/build/
+
+# downloaded by tools/get_fatfs.sh
+iop/ff.c
+iop/ff.h
+iop/ffconf.h
+iop/diskio.h
+iop/ffunicode.c

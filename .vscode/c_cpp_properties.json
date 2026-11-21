@@ -1,0 +1,33 @@
+{
+    "env": {
+        "ps2dev": "/usr/local/ps2dev",
+        "ps2sdk": "/usr/local/ps2dev/ps2sdk"
+    },
+    "configurations": [
+        {
+            "name": "PS2 EE (ee/)",
+            "compilerPath": "${ps2dev}/ee/bin/mips64r5900el-ps2-elf-gcc",
+            "includePath": [
+                "${workspaceFolder}/ee",
+                "${ps2sdk}/ee/include",
+                "${ps2sdk}/common/include",
+                "${ps2sdk}/ports/include"
+            ],
+            "defines": ["_EE"],
+            "cStandard": "gnu11"
+        },
+        {
+            "name": "PS2 IOP (iop/)",
+            "compilerPath": "${ps2dev}/iop/bin/mipsel-none-elf-gcc",
+            "compilerArgs": ["-fno-builtin", "-msoft-float"],
+            "includePath": [
+                "${workspaceFolder}/iop",
+                "${ps2sdk}/iop/include",
+                "${ps2sdk}/common/include"
+            ],
+            "defines": ["_IOP"],
+            "cStandard": "gnu11"
+        }
+    ],
+    "version": 4
+}
