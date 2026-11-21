@@ -68,5 +68,6 @@ EE `mips64r5900el-ps2-elf-gcc`, IOP `mipsel-none-elf-gcc`. Goal: zero warnings.
 
 ## Not verified yet
 
-PCSX2 run, real PS2, OPL with the result, the GitHub Actions workflow.
-The EE side (`ee/main.c`, pad logic) has no automated tests.
+Real PS2, OPL with the result, FTP via wLaunchELF R3Z.
+Done: CI green; PCSX2 2026-11-21 (40 GiB image formatted, fsck clean,
+held-X-during-load correctly ignored). EE side has no automated tests.

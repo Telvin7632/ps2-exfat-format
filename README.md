@@ -141,13 +141,15 @@ read-only (`losetup -r -o <offset> --sizelimit <size>`), and runs
 
 1. PCSX2 → Settings → **Network & HDD**: enable the network adapter and the
    HDD, and create an HDD image (for example 40 GB). PCSX2 stores it as a raw
-   disk image (default name `DEV9hdd.raw`).
+   disk image. If the setting is a bare file name (default `DEV9hdd.raw`),
+   PCSX2 puts the file in its `inis` folder, e.g.
+   `Documents\PCSX2\inis\DEV9hdd.raw`.
 2. Start `ee/exfat-format.elf` (System → Start File, or the VS Code task
    **Run in PCSX2**; adjust the path to `pcsx2-qt.exe` in `.vscode/tasks.json`).
 3. Press **X**, then **START**. Wait for `DONE`, then close PCSX2.
 4. Check the image in WSL:
    ```bash
-   IMG="/mnt/c/Users/<you>/Documents/PCSX2/DEV9hdd.raw"   # your image path
+   IMG="/mnt/c/Users/<you>/Documents/PCSX2/inis/DEV9hdd.raw"   # your image path
    LOOP=$(sudo losetup -f --show -r -P "$IMG")
    sudo fsck.exfat -n "${LOOP}p1"
    sudo losetup -d "$LOOP"
@@ -239,8 +241,8 @@ Codes 100–104 and FRESULT 1–19 come from `iop/main.c` and FatFs `ff.h`.
 | `imports.lst` matches the functions the IRX calls | ✅ verified (`nm -u` of the objects) |
 | Host tests (`make test`): protocol, device selection, 40 GB / 500 GB / 3 TB images, > 4 GiB file round-trip | ✅ pass |
 | `fsck.exfat -n` (exfatprogs 1.2.2) on the `make test` images | ✅ clean: 40 GB, 500 GB, 3 TB as ata_bd sees it (MBR), 3 TB raw (GPT) |
-| GitHub Actions workflow | written, not run yet |
-| PCSX2 | ❌ not run yet |
+| GitHub Actions workflow (PS2 build in `ps2dev/ps2dev:latest`, host tests + fsck) | ✅ passes |
+| PCSX2, 40 GiB HDD image | ✅ formatted: MBR, exFAT at LBA 63, cluster heap at LBA 4096, `fsck.exfat -n` clean. X held while drivers load did not confirm |
 | Real PS2 | ❌ not run yet |
 | OPL with a disk made by this program | ❌ not run yet |
 

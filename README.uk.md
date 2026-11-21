@@ -144,13 +144,15 @@ make test-clean                 # прибрати збірку тестів і 
 
 1. PCSX2 → Settings → **Network & HDD**: увімкніть мережевий адаптер і HDD,
    створіть образ HDD (наприклад, 40 ГБ). PCSX2 зберігає його як сирий
-   образ диска (типова назва `DEV9hdd.raw`).
+   образ диска. Якщо в налаштуванні вказано лише ім'я файлу (типово
+   `DEV9hdd.raw`), PCSX2 кладе файл у свою папку `inis`, наприклад
+   `Documents\PCSX2\inis\DEV9hdd.raw`.
 2. Запустіть `ee/exfat-format.elf` (System → Start File або задача VS Code
    **Run in PCSX2**; шлях до `pcsx2-qt.exe` змініть у `.vscode/tasks.json`).
 3. Натисніть **X**, потім **START**. Дочекайтеся `DONE` і закрийте PCSX2.
 4. Перевірте образ у WSL:
    ```bash
-   IMG="/mnt/c/Users/<ви>/Documents/PCSX2/DEV9hdd.raw"   # шлях до вашого образу
+   IMG="/mnt/c/Users/<ви>/Documents/PCSX2/inis/DEV9hdd.raw"   # шлях до вашого образу
    LOOP=$(sudo losetup -f --show -r -P "$IMG")
    sudo fsck.exfat -n "${LOOP}p1"
    sudo losetup -d "$LOOP"
@@ -241,8 +243,8 @@ SifExecModuleBuffer(exfatfmt.irx, "FORMAT")► потік: f_mkfs("0:", FM_EXFAT
 | `imports.lst` відповідає функціям, які викликає IRX | ✅ перевірено (`nm -u` по об'єктниках) |
 | Тести на ПК (`make test`): протокол, вибір пристрою, образи 40 ГБ / 500 ГБ / 3 ТБ, запис і читання файлу > 4 ГіБ | ✅ проходять |
 | `fsck.exfat -n` (exfatprogs 1.2.2) на образах `make test` | ✅ clean: 40 ГБ, 500 ГБ, 3 ТБ так, як його бачить ata_bd (MBR), 3 ТБ повністю (GPT) |
-| Workflow GitHub Actions | написано, ще не запускався |
-| PCSX2 | ❌ ще не запускалося |
+| Workflow GitHub Actions (збірка PS2 у `ps2dev/ps2dev:latest`, тести на ПК + fsck) | ✅ проходить |
+| PCSX2, HDD-образ 40 ГіБ | ✅ відформатовано: MBR, exFAT з LBA 63, область кластерів з LBA 4096, `fsck.exfat -n` clean. X, затиснутий під час завантаження драйверів, форматування не підтвердив |
 | Справжня PS2 | ❌ ще не запускалося |
 | OPL з диском від цієї програми | ❌ ще не перевірялося |
 
