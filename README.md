@@ -238,7 +238,7 @@ Codes 100–104 and FRESULT 1–19 come from `iop/main.c` and FatFs `ff.h`.
 | Build with the current PS2DEV, no warnings, no unresolved IRX symbols | ✅ verified |
 | `imports.lst` matches the functions the IRX calls | ✅ verified (`nm -u` of the objects) |
 | Host tests (`make test`): protocol, device selection, 40 GB / 500 GB / 3 TB images, > 4 GiB file round-trip | ✅ pass |
-| `fsck.exfat -n` on PC-made images | ✅ clean in an earlier PC test (40 GB, 500 GB MBR; 3 TB GPT). For the current `make test` images, run `tests/host/fsck_images.sh` (needs root) |
+| `fsck.exfat -n` (exfatprogs 1.2.2) on the `make test` images | ✅ clean: 40 GB, 500 GB, 3 TB as ata_bd sees it (MBR), 3 TB raw (GPT) |
 | GitHub Actions workflow | written, not run yet |
 | PCSX2 | ❌ not run yet |
 | Real PS2 | ❌ not run yet |
