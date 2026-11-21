@@ -18,7 +18,7 @@ jobs:
         shell: sh
         run: apk add --no-cache build-base bash curl unzip git
 
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
       - name: Build
         run: make 2>&1 | tee build.log
@@ -45,7 +45,7 @@ jobs:
     name: Host tests + fsck.exfat
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
       - name: Install exfatprogs
         run: sudo apt-get update && sudo apt-get install -y exfatprogs
