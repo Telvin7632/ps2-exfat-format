@@ -171,8 +171,15 @@ read-only (`losetup -r -o <offset> --sizelimit <size>`), and runs
 
 The disk is a normal MBR + exFAT disk. In an OPL build with BDM support,
 enable the HDD (ATA) BDM device and put games into `DVD/` and `CD/` on the
-disk, as for other BDM devices. This has not been tested with disks
-formatted by this program yet.
+disk, as for other BDM devices.
+
+Tested with OPL Beta 1.2.0 2271 (b3a2199): from this HDD OPL lists only ISOs
+with the old naming `SLUS_205.52.Name.iso` (game ID, dot, name); those boot.
+ISOs with plain names (`Name.iso`) are not listed from the HDD, while the same
+names are listed from a USB stick. Reported to OPL as
+[issue #1805](https://github.com/ps2homebrew/Open-PS2-Loader/issues/1805).
+The BDM HDD icon in OPL is labelled "GPT" for MBR disks too; it does not mean
+the disk is GPT.
 
 ## How it works
 
@@ -243,11 +250,11 @@ Codes 100–104 and FRESULT 1–19 come from `iop/main.c` and FatFs `ff.h`.
 | `fsck.exfat -n` (exfatprogs 1.2.2) on the `make test` images | ✅ clean: 40 GB, 500 GB, 3 TB as ata_bd sees it (MBR), 3 TB raw (GPT) |
 | GitHub Actions workflow (PS2 build in `ps2dev/ps2dev:latest`, host tests + fsck) | ✅ passes |
 | PCSX2, 40 GiB HDD image | ✅ formatted: MBR, exFAT at LBA 63, cluster heap at LBA 4096, `fsck.exfat -n` clean. X held while drivers load did not confirm |
-| Real PS2 | ❌ not run yet |
-| OPL with a disk made by this program | ❌ not run yet |
+| Real PS2: SCPH-50008, Seagate ST3320413CS 320 GB (UDMA 4), Sony network adapter with a SATA upgrade | ✅ formatted: MBR, one 0x07 partition at LBA 63, exFAT, 128 KiB clusters |
+| OPL Beta 1.2.0 2271 (b3a2199) with that disk | ✅ disk detected, OPL creates its folders; ISOs named `SLUS_xxx.xx.Name.iso` are listed and boot. ⚠️ Plain-named ISOs are not listed ([OPL #1805](https://github.com/ps2homebrew/Open-PS2-Loader/issues/1805)) |
 
-Until it has been run in PCSX2 and on hardware, use it only on a disk whose
-contents you can lose.
+Tested on one console with one disk so far. Formatting erases the disk: keep
+a copy of anything you need.
 
 ## Credits
 

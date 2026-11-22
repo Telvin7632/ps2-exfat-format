@@ -68,6 +68,12 @@ EE `mips64r5900el-ps2-elf-gcc`, IOP `mipsel-none-elf-gcc`. Goal: zero warnings.
 
 ## Not verified yet
 
-Real PS2, OPL with the result, FTP via wLaunchELF R3Z.
+FTP via wLaunchELF R3Z. EE side has no automated tests.
 Done: CI green; PCSX2 2026-11-21 (40 GiB image formatted, fsck clean,
-held-X-during-load correctly ignored). EE side has no automated tests.
+held-X-during-load correctly ignored); real PS2 2026-11-22 (SCPH-50008,
+Seagate 320 GB: formatted, OPL b3a2199 boots games).
+OPL lists ISOs from the BDM HDD only with old names `SLUS_xxx.xx.Name.iso`;
+plain names go through OPL's `scanForISO` iso: mount + SYSTEM.CNF read and
+are skipped (same names list from USB; files verified byte-identical on the
+console). Reported as ps2homebrew/Open-PS2-Loader#1805; cause not found yet.
+OPL's "GPT" icon label is just its fixed BDM-HDD icon (`gfx/hdd_bd.png`).
